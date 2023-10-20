@@ -1,27 +1,52 @@
-package ru.geekbrains.lesson3;
+package sem03hw;
 
 import java.awt.*;
 
 public abstract class Car {
 
-    private Refueling refueling;
-
-    public void setRefuelingStation(Refueling refuelingStation) {
-        this.refueling = refuelingStation;
-    }
-
     /**
      * Заправить автомобиль
      */
+    private Refueling refuelingStation;
+
+    public void setRefuelingStation(Refueling refuelingStation) {
+        this.refuelingStation = refuelingStation;
+    }
+
     public void fuel() {
-        if (refueling != null){
-            refueling.fuel(fuelType);
+        if (this.refuelingStation != null) {
+            this.refuelingStation.fuel(this.fuelType);
         }
     }
 
+    /**
+     * Шиномонтаж
+     */
+    private TyresFitting tyreFittingStation;
 
-    protected void setWheelsCount(int wheelsCount){
-        this.wheelsCount = wheelsCount;
+    public void setTyreFittingStation(TyresFitting tyreFittingStation) {
+        this.tyreFittingStation = tyreFittingStation;
+    }
+
+    public void fitTyres() {
+        if (this.tyreFittingStation != null) {
+            this.tyreFittingStation.fitTyres(this.wheelsCount, this.carType);
+        }
+    }
+
+    /**
+     * Автомойка
+     */
+    private CarWashing carCarWashingStation;
+
+    public void setCarWashingStation(CarWashing carCarWashingStation) {
+        this.carCarWashingStation = carCarWashingStation;
+    }
+
+    public void washCar() {
+        if (this.carCarWashingStation != null) {
+            this.carCarWashingStation.washCar(this.carType);
+        }
     }
 
     public int getWheelsCount() {
@@ -29,20 +54,27 @@ public abstract class Car {
     }
 
     // Движение
-    public abstract void movement();
-    // Обслуживание
-    public abstract void maintenance();
+    public abstract void move();
+
     // Переключение передач
     public abstract boolean gearShifting();
-    // Включение фар
-    public abstract boolean switchHeadlights();
+
+    // Переключение фар
+    public boolean toggleHeadlights() {
+        this.headlights = !this.headlights;
+        return this.headlights;
+    }
+
     // Включение дворников
-    public abstract boolean switchWipers();
+    public boolean toggleWipers() {
+        this.wipers = !this.wipers;
+        return this.wipers;
+    }
 
     //region Конструкторы
 
-    public Car(String make, String model, Color color) {
-        this.make = make;
+    public Car(String brand, String model, Color color) {
+        this.brand = brand;
         this.model = model;
         this.color = color;
     }
@@ -51,23 +83,26 @@ public abstract class Car {
 
     //region Поля
 
-    // Марка автомобиля
-    private String make;
+    // Тип автомобиля
+    protected CarType carType;
 
-    // Модель
+    // Марка автомобиля
+    private String brand;
+
+    // Модель автомобиля
     private String model;
 
-    // Цвет
+    // Цвет автомобиля
     private Color color;
 
-    // Тип
+    // Тип автомобиля
     protected CarType type;
 
     // Число колес
-    private int wheelsCount;
+    protected int wheelsCount;
 
     // Тип топлива
-    protected FuelType fuelType = FuelType.Diesel;
+    protected FuelType fuelType;
 
     // Тип коробки передач
     private GearboxType gearboxType;
@@ -75,11 +110,15 @@ public abstract class Car {
     // Объем двигателя
     private double engineCapacity;
 
+    // Состояние фар
+    private boolean headlights = false;
+
     // Состояние противотуманных фар
-    private boolean fogLights = false;
+    protected boolean fogLights = false;
+
+    // Состояние противотуманных фар
+    private boolean wipers = false;
 
     //endregion
-
-
 
 }

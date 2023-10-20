@@ -1,4 +1,4 @@
-package ru.geekbrains.lesson3;
+package sem03hw;
 
 public enum FuelType {
     Diesel,

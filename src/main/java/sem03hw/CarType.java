@@ -1,8 +1,9 @@
-package ru.geekbrains.lesson3;
+package sem03hw;
 
 public enum CarType {
     Sedan,
     Hatchback,
     Pickup,
-    Sport
+    Sport,
+    Special
 }
