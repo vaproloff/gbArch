@@ -2,40 +2,25 @@ package sem04hw;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 public class Database {
 
-    private static int counter;
+    private final Collection<Customer> customers = new ArrayList<>();
+    private final Collection<Ticket> tickets = new ArrayList<>();
+    private final Collection<Order> orders = new ArrayList<>();
 
-    public Database() {
-
-        Ticket ticket1 = new Ticket();
-        Ticket ticket2 = new Ticket();
-
-
-        tickets.add(ticket1);
-        tickets.add(ticket2);
-
-        Customer customer1 = new Customer();
-
-        customer1.getTickets().add(ticket1);
-        customer1.getTickets().add(ticket2);
-
-        Customer customer2 = new Customer();
-        Customer customer3 = new Customer();
-        Customer customer4 = new Customer();
-        Customer customer5 = new Customer();
-
-
-        customers.add(customer1);
-        customers.add(customer2);
-        customers.add(customer3);
-        customers.add(customer4);
-        customers.add(customer5);
+    {
+        for (int i = 1; i <= 10; i++) {
+            Customer customer = new Customer(String.format("customer_%d", i), String.format("password_%d", i));
+            for (int j = 0; j < new Random().nextInt(0, 3); j++) {
+                Ticket ticket = new Ticket(customer.getId(), this.getTicketAmount());
+                customer.addTicket(ticket);
+                this.tickets.add(ticket);
+            }
+            this.customers.add(customer);
+        }
     }
-
-    private Collection<Ticket> tickets = new ArrayList<>();
-    private Collection<Customer> customers = new ArrayList<>();
 
     public Collection<Ticket> getTickets() {
         return tickets;
@@ -45,22 +30,26 @@ public class Database {
         return customers;
     }
 
+    public Collection<Order> getOrders() {
+        return orders;
+    }
+
     /**
      * Получить актуальную стоимость билета
-     *
-     * @return
      */
     public double getTicketAmount() {
         return 55;
     }
 
-    /**
-     * Получить идентификатор заявки на покупку билета
-     *
-     * @return
-     */
-    public int createTicketOrder(int clientId) {
-        return ++counter;
+    public Order createTicketOrder(int clientId, Ticket ticket) {
+        this.tickets.add(ticket);
+        Order order = new Order(clientId, ticket.getId());
+        this.orders.add(order);
+        return order;
     }
 
+    public boolean addCustomer(Customer customer) {
+        this.customers.add(customer);
+        return true;
+    }
 }

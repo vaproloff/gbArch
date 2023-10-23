@@ -1,5 +1,7 @@
 package sem04hw;
 
+import java.util.Collection;
+
 public class CustomerProvider {
 
     private final Database database;
@@ -9,8 +11,27 @@ public class CustomerProvider {
     }
 
     public Customer getCustomer(String login, String password) {
-        return new Customer();
-        //return database.getCustomers().stream().findFirst().get();
+        Collection<Customer> customers = database.getCustomers();
+        for (Customer customer : customers) {
+            if (customer.getLogin().equals(login) && customer.getPassword().equals(password)) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
+    public Customer getCustomerById(int id) {
+        for (Customer customer : database.getCustomers()) {
+            if (customer.getId() == id) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
+    public boolean signUpCustomer(String login, String password) {
+        Customer customer = new Customer(login, password);
+        return database.addCustomer(customer);
     }
 
 

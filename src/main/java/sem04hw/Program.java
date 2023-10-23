@@ -24,15 +24,27 @@ public class Program {
      * 3. Разработать Диаграмму компонент комплекса используя нотацию UML 2.0. Общая, без деталей.
      * Достаточно выполнить одну любую задачу на выбор.
      */
+
     public static void main(String[] args) {
         Core core = new Core();
-        MobileApp mobileApp = new MobileApp(core.getTicketProvider(), core.getCustomerProvider());
-        BusStation busStation = new BusStation(core.getTicketProvider());
+        MobileApp mobileApp1 = new MobileApp(core.getTicketProvider(), core.getCustomerProvider());
+        mobileApp1.signIn("customer_2", "password_2");
 
-        if (mobileApp.buyTicket("1000000000000099")) {
-            mobileApp.searchTicket(new Date());
+        for (Ticket ticket : mobileApp1.getTickets()) {
+            System.out.println(ticket);
         }
+        System.out.println();
 
+        Ticket ticket1 = mobileApp1.buyTicket("1000000000000099");
+        for (Ticket ticket : mobileApp1.getTickets()) {
+            System.out.println(ticket);
+        }
+        System.out.println();
+
+        BusStation busStation1 = new BusStation(core.getTicketProvider());
+        busStation1.checkTicket(ticket1.getQrcode());
+
+        System.out.println(ticket1);
     }
 
 }

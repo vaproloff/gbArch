@@ -11,7 +11,7 @@ public class Core {
         database = new Database();
         customerProvider = new CustomerProvider(database);
         paymentProvider = new PaymentProvider();
-        ticketProvider = new TicketProvider(database, paymentProvider);
+        ticketProvider = new TicketProvider(database, paymentProvider, customerProvider);
     }
 
     /**
