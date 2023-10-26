@@ -4,9 +4,18 @@ public class Texture implements Entity {
 
     private static int counter = 50000;
     private int id;
+    private String name;
 
     {
         id = ++counter;
+    }
+
+    public Texture(String name) {
+        this.name = name;
+    }
+
+    public Texture() {
+        this.name = String.format("texture_%d", this.id);
     }
 
     @Override
@@ -16,6 +25,6 @@ public class Texture implements Entity {
 
     @Override
     public String toString() {
-        return String.format("Texture #%s", id);
+        return String.format("Texture #%s: '%s'", id, name);
     }
 }

@@ -1,6 +1,7 @@
 package sem05hw;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Editor3D implements UILayer {
 
@@ -107,5 +108,33 @@ public class Editor3D implements UILayer {
             throw new RuntimeException("Файл проекта не определен.");
     }
 
+    @Override
+    public void addModel(String modelName, Collection<Texture> textures) {
+        checkProjectFile();
+        businessLogicalLayer.addModel(modelName, textures);
+    }
 
+    @Override
+    public void deleteModel(int modelNo) {
+        checkProjectFile();
+        businessLogicalLayer.deleteModel(modelNo);
+    }
+
+    @Override
+    public void addTexture(String textureName) {
+        checkProjectFile();
+        businessLogicalLayer.addTexture(textureName);
+    }
+
+    @Override
+    public void deleteTexture(int textureNo) {
+        checkProjectFile();
+        businessLogicalLayer.deleteTexture(textureNo);
+    }
+
+    @Override
+    public Texture getTexture(int textureNo) {
+        checkProjectFile();
+        return businessLogicalLayer.getTexture(textureNo);
+    }
 }

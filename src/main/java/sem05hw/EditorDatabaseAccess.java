@@ -66,4 +66,14 @@ public class EditorDatabaseAccess implements DatabaseAccess {
         }
         return models;
     }
+
+    @Override
+    public Entity getEntity(int entityNo) {
+        for (Entity entity : editorDatabase.getAll()) {
+            if (entity.getId() == entityNo) {
+                return entity;
+            }
+        }
+        return null;
+    }
 }
