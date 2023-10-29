@@ -8,8 +8,13 @@ import java.util.Collection;
 public class NotesConsolePresenter implements NotesPresenter {
     @Override
     public void printAll(Collection<Note> notes) {
-        for (Note note : notes){
-            System.out.println(note);
+        for (Note note : notes) {
+            this.printOne(note);
         }
+    }
+
+    @Override
+    public void printOne(Note note) {
+        System.out.printf("%d: %s%n", note.getId(), note);
     }
 }

@@ -22,23 +22,26 @@ public class ConcreteNoteEditor implements NoteEditor {
 
     @Override
     public boolean add(Note item) {
-        dbContext.getAll().add(item);
-        return dbContext.saveChanges();
+        return dbContext.addNote(item);
     }
 
     @Override
     public boolean edit(Note item) {
-        return false;
+        return dbContext.updateNote(item);
     }
 
     @Override
     public boolean remove(Note item) {
-        dbContext.getAll().remove(item);
-        return dbContext.saveChanges();
+        return dbContext.deleteNote(item);
     }
 
     @Override
-    public Optional<Note> getById(Integer integer) {
+    public Optional<Note> getById(Integer noteId) {
+        for (Note note : dbContext.getAll()) {
+            if (noteId == note.getId()) {
+                return Optional.of(note);
+            }
+        }
         return Optional.empty();
     }
 
@@ -50,5 +53,10 @@ public class ConcreteNoteEditor implements NoteEditor {
     @Override
     public void printAll() {
         presenter.printAll(getAll());
+    }
+
+    @Override
+    public void printOne(Note item) {
+        presenter.printOne(item);
     }
 }

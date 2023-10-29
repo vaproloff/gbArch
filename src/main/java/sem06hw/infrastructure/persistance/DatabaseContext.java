@@ -11,9 +11,9 @@ import java.util.Collection;
 
 public class DatabaseContext extends DbContext implements NotesDatabaseContext {
 
-    public Collection<Note> getAll(){
+    public Collection<Note> getAll() {
         Collection<Note> notes = new ArrayList<>();
-        for (NotesRecord record : ((NotesDatabase)database).getNotesTable().getRecords()){
+        for (NotesRecord record : ((NotesDatabase) database).getNotesTable().getRecords()) {
             notes.add(new Note(
                     record.getId(),
                     record.getTitle(),
@@ -21,6 +21,21 @@ public class DatabaseContext extends DbContext implements NotesDatabaseContext {
             ));
         }
         return notes;
+    }
+
+    @Override
+    public boolean addNote(Note note) {
+        return ((NotesDatabase) database).getNotesTable().addRecord(note);
+    }
+
+    @Override
+    public boolean updateNote(Note note) {
+        return ((NotesDatabase) database).getNotesTable().updateRecord(note);
+    }
+
+    @Override
+    public boolean deleteNote(Note note) {
+        return ((NotesDatabase) database).getNotesTable().deleteRecord(note);
     }
 
 
@@ -32,4 +47,5 @@ public class DatabaseContext extends DbContext implements NotesDatabaseContext {
     protected void onModelCreating(ModelBuilder builder) {
         builder.applyConfiguration(new NoteConfiguration());
     }
+
 }

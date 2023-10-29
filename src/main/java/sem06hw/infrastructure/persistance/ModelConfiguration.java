@@ -1,5 +1,5 @@
 package sem06hw.infrastructure.persistance;
 
-public interface ModelConfiguration<T>{
+public interface ModelConfiguration<T> {
 
 }

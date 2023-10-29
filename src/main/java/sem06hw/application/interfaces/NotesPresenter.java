@@ -8,4 +8,6 @@ public interface NotesPresenter {
 
     void printAll(Collection<Note> notes);
 
+    void printOne(Note note);
+
 }
